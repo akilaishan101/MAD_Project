@@ -40,6 +40,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Add_Food extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,21 +60,14 @@ public class Add_Food extends AppCompatActivity
         setContentView(R.layout.activity_add__food);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationonreView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationonreView.setNavigationItemSelectedListener(this);
 
         name = findViewById(R.id.food_name);
         price = findViewById(R.id.food_price);
@@ -213,7 +208,49 @@ public class Add_Food extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
+
+                        String idw = id.getText().toString();
+                        String namew = name.getText().toString();
+                        String company = price.getText().toString();
+
+                        int vali =0;
+
+                        if (idw.length() == 0 || idw == null) {
+                            vali = 1;
+
+                            new SweetAlertDialog(Add_Food.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("foodId field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+                        }
+                        if (namew.length() == 0 || namew == null){
+                            vali = 1;
+                            new SweetAlertDialog(Add_Food.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("food name field Empty!")
+                                    .show();
+                        }
+                        else {
+                            vali = 0;
+
+                        }
+                        if (company.length() == 0 || name == null){
+                            vali =1;
+                            new SweetAlertDialog(Add_Food.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Price field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+
+                        }
+
+
+                        if (vali == 0){
 
                             DB.addfoodData(
                                     id.getText().toString().trim(),
@@ -228,11 +265,14 @@ public class Add_Food extends AppCompatActivity
                             intent.putExtra("Shop_ID",Shop_ID);
                             intent.putExtra("user","shop");
                             startActivity(intent);
-
-
-                        }catch (Exception e){
-                            e.printStackTrace();
                         }
+                        else{
+                            new SweetAlertDialog(Add_Food.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Not added food data!")
+                                    .show();
+                        }
+
                     }
 
 

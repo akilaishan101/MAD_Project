@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@drawable/background_picture"
+    android:backgroundTint="@color/white"
     tools:context=".food_feed"
     tools:showIn="@layout/activity_food_feed">
 
@@ -15,6 +15,7 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search Here">
 
@@ -23,8 +24,8 @@
 
     <ListView
         android:id="@+id/foodlist"
-        android:layout_width="410dp"
-        android:layout_height="547dp">
+        android:layout_width="450dp"
+        android:layout_height="500dp">
 
     </ListView>
 

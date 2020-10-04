@@ -43,7 +43,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + UserMaster.USER_INFORMAION + " (" +
                 UserMaster.COLUMN_NAME1_USERNAME + " TEXT PRIMARY KEY," +
-                UserMaster.COLUMN_NAME2_NAME + " TEXT," +
                 UserMaster.COLUMN_NAME3_EMAIL + " TEXT," +
                 UserMaster.COLUMN_NAME4_PHONE + " TEXT," +
                 UserMaster.COLUMN_NAME5_ADDRESS + " TEXT," +
@@ -91,13 +90,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //add users
-    public boolean Register_user(String UserName, String name, String email, String phone, String address, String type, String Passwrod) {
+    public boolean Register_user(String UserName, String email, String phone, String address, String type, String Passwrod) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(UserMaster.COLUMN_NAME1_USERNAME, UserName);
-        contentValues.put(UserMaster.COLUMN_NAME2_NAME, name);
         contentValues.put(UserMaster.COLUMN_NAME3_EMAIL, email);
         contentValues.put(UserMaster.COLUMN_NAME4_PHONE, phone);
         contentValues.put(UserMaster.COLUMN_NAME5_ADDRESS, address);
@@ -105,6 +103,27 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserMaster.COLUMN_NAME6_PASSWORD, Passwrod);
 
         long insert = db.insert(UserMaster.USER_INFORMAION, null, contentValues);
+        if (insert == -1) {
+            return false;
+        } else {
+            return true;
+
+        }
+
+
+    }
+    //feedback
+    public boolean feedback(String UserName, String email, String phone, String message) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(UserMaster.COLUMN_NAME1_USERNAME1, UserName);
+        contentValues.put(UserMaster.COLUMN_NAME3_EMAIL1, email);
+        contentValues.put(UserMaster.COLUMN_NAME4_PHONE1, phone);
+        contentValues.put(UserMaster.COLUMN_NAME5_MESSEGE, message);
+
+        long insert = db.insert(UserMaster.FEED_INFORMAION, null, contentValues);
         if (insert == -1) {
             return false;
         } else {

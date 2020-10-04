@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class food_edit extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class food_edit extends AppCompatActivity {
     byte[] f_image;
     DBHelper dbHelper;
     TextView fid,fname,fprice;
-    Button edit;
+    Button edit,delete;
     ImageView imgfood;
 
     String FOOD_ID,SHOP_ID;
@@ -37,14 +38,6 @@ public class food_edit extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         dbHelper = new DBHelper(this);
 
@@ -56,22 +49,74 @@ public class food_edit extends AppCompatActivity {
 
         imgfood = findViewById(R.id.fimg);
         edit = findViewById(R.id.edit);
+        delete = findViewById(R.id.delete1);
+
 
         //get shopID
         Intent thisIntent = getIntent();
         FOOD_ID = thisIntent.getStringExtra("foodID");
         SHOP_ID = thisIntent.getStringExtra("Shop_ID");
         VeiwProfile(FOOD_ID);
+        updatefood();
+        deletefood();
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent redirect_food = new Intent(food_edit.this,foodprofile.class);
-                redirect_food.putExtra("foodID",FOOD_ID);
-                redirect_food.putExtra("Shop_ID",SHOP_ID);
-                startActivity(redirect_food);
-            }
-        });
+
+    }
+    private void deletefood() {
+
+        delete.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Integer deleted_rows = dbHelper.deletefood(fid.getText().toString());
+                        if (deleted_rows > 0) {
+
+                            fid.setText("");
+                            fname.setText("");
+                            fprice.setText("");
+                            imgfood.setImageResource(R.mipmap.ic_launcher);
+                            Toast.makeText(food_edit.this, "Data Deleted", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(food_edit.this,food_feed.class);
+                            intent.putExtra("Shop_ID",SHOP_ID);
+                            intent.putExtra("user","shop");
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(food_edit.this, "Error", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+
+
+    }
+
+
+
+    private void updatefood() {
+
+        edit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        boolean isUpdate = dbHelper.update_food(fid.getText().toString(),
+                                fname.getText().toString(),
+                                fprice.getText().toString());
+
+                        if (isUpdate == true) {
+                            Toast.makeText(food_edit.this, "Profile Updated", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(food_edit.this,food_feed.class);
+                            intent.putExtra("foodID",fid.getText().toString());
+                            intent.putExtra("Shop_ID",SHOP_ID);
+                            intent.putExtra("user","shop");
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(food_edit.this, "Error", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
 
     }
 

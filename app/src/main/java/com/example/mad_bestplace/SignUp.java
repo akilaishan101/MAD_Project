@@ -29,12 +29,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
 
     DBHelper dbHelper;
-    EditText edit_username,edit_name,edit_email,edit_phone,edit_address,edit_password,edit_password1;
-    Button signup;
+    EditText edit_username,edit_email,edit_phone,edit_address,edit_password,edit_password1;
+    Button signup, login;
     String TEXT;
 
     @Override
@@ -43,14 +45,7 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         setContentView(R.layout.activity_sign_up);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,7 +57,6 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         dbHelper = new DBHelper(this);
 
         edit_username = findViewById(R.id.EDIT_SIGNUP_USERNAME);
-        edit_name = findViewById(R.id.EDIT_SIGNUP_NAME);
         edit_email = findViewById(R.id.EDIT_SIGNUP_EMAIL);
         edit_phone = findViewById(R.id.EDIT_SIGNUP_PHONE);
         edit_address = findViewById(R.id.EDIT_SIGNUP_ADDRESS);
@@ -70,8 +64,10 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         edit_password1 = findViewById(R.id.SIGNUP_PASSWORD2);
 
         signup = findViewById(R.id.SIGNUP_BTN);
+        login = findViewById(R.id.LOGIN_BTN);
 
         Register();
+        Login();
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.User_Levels, android.R.layout.simple_spinner_item);
@@ -90,7 +86,17 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
-
+    public void Login() {
+        login.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent2 = new Intent(SignUp.this, MainActivity.class);
+                        startActivity(intent2);
+                    }
+                }
+        );
+    }
 
     public void Register() {
         signup.setOnClickListener(
@@ -99,7 +105,6 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                     public void onClick(View view) {
 
                         String Us = edit_username.getText().toString();
-                        String na =  edit_name.getText().toString();
                         String emaiL = edit_email.getText().toString();
                         String phone = edit_phone.getText().toString();
                         String add =  edit_address.getText().toString();
@@ -110,14 +115,14 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
                         if (Us.length() == 0 || Us == null) {
                             vali = 1;
-                            Toast.makeText(SignUp.this, "Enter Valid Username!", Toast.LENGTH_LONG).show();
+
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Username field Empty!")
+                                    .show();
                         }
                         else{
                             vali = 0;
-                        }
-                        if (na.length() == 0 || na == null){
-                            vali = 1;
-                            Toast.makeText(SignUp.this, "Name Field is Empty!", Toast.LENGTH_LONG).show();
                         }
                         if (emaiL.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$") &&emaiL != null && emaiL.length() != 0){
                             vali = 0;
@@ -125,7 +130,10 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                         }
                         else {
                             vali = 1;
-                            Toast.makeText(SignUp.this, "Enter a Valid Email!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Email field Empty!")
+                                    .show();
 
                         }
                         if (phone.length() == 10 && phone.matches("[0-9]+")){
@@ -134,27 +142,38 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                         }
                         else{
                             vali =1;
-                            Toast.makeText(SignUp.this, "Enter a Valid Phone Number!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Email field Empty!")
+                                    .show();
                         }
                         if (add.length() == 0|| add ==null){
                             vali =1;
-                            Toast.makeText(SignUp.this, "Address Field is Empty!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Email field Empty!")
+                                    .show();
                         }
                         if (pass.length() == 0||pass == null ){
                             vali = 1;
-                            Toast.makeText(SignUp.this, "Enter a password!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText(" Enter valid password!")
+                                    .show();
                         }
                         else if (pass.equals(pass1)) {
 
                         }
                         else{
-                            Toast.makeText(SignUp.this, "Enter the Same Password!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Enter same password!")
+                                    .show();
                         }
 
                         if (vali == 0){
 
                             boolean isInserted = dbHelper.Register_user(edit_username.getText().toString(),
-                                    edit_name.getText().toString(),
                                     edit_email.getText().toString(),
                                     edit_phone.getText().toString(),
                                     edit_address.getText().toString(),
@@ -165,7 +184,10 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                                 Intent intent1 = new Intent(SignUp.this, MainActivity.class);
                                 startActivity(intent1);
                             } else {
-                                Toast.makeText(SignUp.this, "Error", Toast.LENGTH_LONG).show();
+                                new SweetAlertDialog(SignUp.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("SignUp Fail")
+                                        .setContentText("Not added user!")
+                                        .show();
                             }
                         }
                         else{

@@ -14,12 +14,18 @@ public class UserMaster {
     //USER
     public static final String USER_INFORMAION = "user";
     public static final String COLUMN_NAME1_USERNAME = "username";
-    public static final String COLUMN_NAME2_NAME = "name";
     public static final String COLUMN_NAME3_EMAIL = "email";
     public static final String COLUMN_NAME4_PHONE = "phone";
     public static final String COLUMN_NAME5_ADDRESS = "address";
     public static final String COLUMN_NAME7_TYPE = "type";
     public static final String COLUMN_NAME6_PASSWORD = "password";
+
+    //FEEDBACK
+    public static final String FEED_INFORMAION = "feed";
+    public static final String COLUMN_NAME1_USERNAME1 = "username";
+    public static final String COLUMN_NAME3_EMAIL1 = "email";
+    public static final String COLUMN_NAME4_PHONE1 = "phone";
+    public static final String COLUMN_NAME5_MESSEGE = "message";
 
 
     //FOOD

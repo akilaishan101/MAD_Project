@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class MainActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
@@ -38,14 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -92,17 +88,21 @@ public class MainActivity extends AppCompatActivity {
 
                         if (username.length() == 0 || username == null ) {
 
-                            Toast.makeText(MainActivity.this, "Please Enter Valid Username!", Toast.LENGTH_LONG).show();
-
+                            new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Login Fail")
+                                    .setContentText("Username field Empty!")
+                                    .show();
                         }else if(passCheck.length() == 0 || passCheck == null){
 
-                            Toast.makeText(MainActivity.this, "Please Enter Valid Password!", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Login Fail")
+                                    .setContentText("Password field Empty!")
+                                    .show();
                         }
                         else{
 
                             if (password.equals(passCheck)) {
                                 Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_LONG).show();
-
                                 if (type.equals(shopowner)) {
                                     Intent redirect_user_feed = new Intent(MainActivity.this, User_Feed.class);
                                     redirect_user_feed.putExtra("user", shopowner);
@@ -114,7 +114,11 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                             } else {
-                                Toast.makeText(MainActivity.this, "User Not Found!", Toast.LENGTH_LONG).show();
+
+                                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Login fail")
+                                        .setContentText("User not found!")
+                                        .show();
                             }
 
                         }

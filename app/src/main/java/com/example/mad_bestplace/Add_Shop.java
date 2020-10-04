@@ -40,6 +40,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Add_Shop extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,14 +59,7 @@ public class Add_Shop extends AppCompatActivity
         setContentView(R.layout.activity_add__shop);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -211,7 +206,72 @@ public class Add_Shop extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try {
+
+                        String Us = edit_id.getText().toString();
+                        String name = edit_name.getText().toString();
+                        String company = edit_cmpany.getText().toString();
+                        String add =  edit_address.getText().toString();
+                        String pass = edit_discription.getText().toString() ;
+
+                        int vali =0;
+
+                        if (Us.length() == 0 || Us == null) {
+                            vali = 1;
+
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("ShopId field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+                        }
+                        if (name.length() == 0 || name == null){
+                            vali = 1;
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Shop name field Empty!")
+                                    .show();
+                        }
+                        else {
+                            vali = 0;
+
+                        }
+                        if (company.length() == 0 || name == null){
+                            vali =1;
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Address field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+
+                        }
+                        if (add.length() == 0|| add ==null){
+                            vali =1;
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Phone field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+
+                        }
+                        if (pass.length() == 0|| pass ==null){
+                            vali =1;
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Description field Empty!")
+                                    .show();
+                        }
+                        else{
+                            vali = 0;
+
+                        }
+
+                        if (vali == 0){
 
                             DB.insertData(
                                     edit_id.getText().toString().trim(),
@@ -227,10 +287,14 @@ public class Add_Shop extends AppCompatActivity
                             Intent intent = new Intent(Add_Shop.this,Shop_Profile.class);
                             intent.putExtra("Shop_ID",edit_id.getText().toString());
                             startActivity(intent);
-
-                        }catch (Exception e){
-                            e.printStackTrace();
                         }
+                        else{
+                            new SweetAlertDialog(Add_Shop.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("SignUp Fail")
+                                    .setContentText("Not added shop data!")
+                                    .show();
+                        }
+
                     }
 
 

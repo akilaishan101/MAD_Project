@@ -4,49 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_picture"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="Add_Food"
     tools:showIn="@layout/app_bar_add__food">
 
+
     <Button
         android:id="@+id/foodbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_width="275dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_corners"
         android:text="@string/ADD_FOOD"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/food_price" />
+        app:layout_constraintTop_toBottomOf="@+id/food_price"
+        app:layout_constraintVertical_bias="0.965" />
 
     <EditText
         android:id="@+id/food_price"
-        android:layout_width="302dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="14"
         android:hint="@string/PRICE"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
     <EditText
         android:id="@+id/food_name"
-        android:layout_width="304dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="14"
         android:hint="@string/FOOD_NAME"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodid" />
 
@@ -54,32 +58,38 @@
         android:id="@+id/foodviwe"
         android:layout_width="350dp"
         android:layout_height="224dp"
-        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_price"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <Button
         android:id="@+id/imgbtn"
-        android:layout_width="41dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="180dp"
-        android:background="@drawable/ic_menu_gallery"
-        app:layout_constraintStart_toStartOf="@+id/foodviwe"
-        app:layout_constraintTop_toTopOf="@+id/foodviwe" />
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_corners2"
+        android:text="Choose Image"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodviwe"
+        app:layout_constraintVertical_bias="0.2" />
 
     <EditText
         android:id="@+id/foodid"
-        android:layout_width="303dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="14"
         android:hint="@string/FOOD_ID"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodviwe" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
